@@ -21,21 +21,13 @@ class Post
   ];
   
   public static function all(){
-    return self::$blog_posts;
+    return collect(self::$blog_posts);
   }
   
   public static function find($slug){
-    $posts = self::$blog_posts;
+    $posts = static::all();
     
-    foreach ($posts as $post){
-      if($post["slug"] == $slug){
-        $choosen_post = $post;
-      }
-    }
-    
-    if(isset($choosen_post)){
-      return $choosen_post;
-    }
+    return $posts->firstWhere('slug', $slug);
     
   }
 
